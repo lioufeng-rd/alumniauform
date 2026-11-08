@@ -8,14 +8,14 @@
 <title>Pendataan Alumni Terkemuka Asia University di Indonesia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0f1b33; --ink-2:#1d2d52; --gold:#b8934a; --gold-soft:#f3ead6;
   --ivory:#faf7f1; --paper:#fff; --line:#e6dfd0; --muted:#68718a;
   --danger:#b3261e; --ok:#1f7a54; --radius:16px;
-  --serif:'Fraunces',Georgia,'Times New Roman',serif;
-  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -23,7 +23,7 @@ body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--ivory);l
 .hero{background:radial-gradient(1200px 400px at 85% -20%,rgba(184,147,74,.35),transparent 60%),linear-gradient(160deg,var(--ink) 0%,var(--ink-2) 100%);color:#fff;padding:44px 20px 110px}
 .hero-inner{max-width:860px;margin:0 auto}
 .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
-.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,5vw,40px);line-height:1.15;margin:10px 0 10px}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5.6vw,46px);line-height:1.15;margin:10px 0 10px}
 .hero p{margin:0;max-width:620px;color:#c9d0e2;font-size:15px}
 .wrap{max-width:860px;margin:-76px auto 60px;padding:0 16px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px -28px rgba(15,27,51,.35);overflow:hidden}
@@ -41,7 +41,7 @@ section.step{display:none;animation:in .35s ease both}
 section.step.show{display:block}
 @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){section.step{animation:none}.bar i{transition:none}}
-h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 4px}
+h2{font-family:var(--serif);font-weight:700;font-size:28px;margin:0 0 4px}
 .lead{color:var(--muted);margin:0 0 22px;font-size:14.5px}
 .field{margin-bottom:18px}
 .field>label,.lbl{display:block;font-weight:600;font-size:13.5px;margin-bottom:6px}
@@ -85,7 +85,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
 .tabs button{border:0;background:transparent;font:inherit;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;cursor:pointer;color:var(--muted)}
 .tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.1)}
 .info{border:1px solid var(--line);border-radius:14px;padding:6px 18px;background:#fffdf9;max-height:420px;overflow:auto}
-.info h3{font-family:var(--serif);font-size:16px;margin:16px 0 4px}
+.info h3{font-family:var(--serif);font-weight:700;font-size:18px;margin:16px 0 4px}
 .info p,.info li{font-size:14px;color:#2b3855;margin:0 0 8px}
 .info ul{padding-left:18px;margin:0 0 8px}
 .callout{background:var(--gold-soft);border-left:3px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:13.5px;margin:10px 0}
@@ -296,8 +296,22 @@ footer{max-width:860px;margin:0 auto 40px;padding:0 20px;color:var(--muted);font
 
         <!-- STEP 4: KONTAK -->
         <section class="step" data-step="4">
-          <h2>Informasi Kontak</h2>
-          <p class="lead">Pilih jenis kontak, lalu isi. Anda boleh menambahkan beberapa. Minimal satu email atau WhatsApp.</p>
+          <h2>Alamat &amp; Kontak</h2>
+          <p class="lead">Alamat saat ini wajib diisi. Kontak: pilih jenis, lalu isi (boleh lebih dari satu, minimal satu email atau WhatsApp).</p>
+          <div class="rowcard" id="addrCard">
+            <div class="rowtitle">Alamat saat ini (wajib)</div>
+            <div class="grid2">
+              <div class="field"><label class="req" for="aCountry">Negara</label><select id="aCountry"></select><div class="err"></div></div>
+              <div class="field" id="w_aCountryOther" hidden><label class="req" for="aCountryOther">Nama negara</label><input type="text" id="aCountryOther"><div class="err"></div></div>
+            </div>
+            <div class="grid2">
+              <div class="field" id="w_aProv"></div><div class="field" id="w_aCity"></div>
+              <div class="field" id="w_aDist"></div><div class="field" id="w_aVill"></div>
+            </div>
+            <div class="field"><label class="req" for="aStreet">Alamat (jalan, nomor, RT/RW)</label><input type="text" id="aStreet" autocomplete="street-address"><div class="err"></div></div>
+            <div class="field" style="margin-bottom:0;max-width:220px"><label for="aPostal">Kode pos</label><input type="text" id="aPostal" inputmode="numeric" autocomplete="postal-code"></div>
+          </div>
+          <div class="rowtitle" style="margin:20px 0 10px">Kontak</div>
           <div id="contacts"></div>
           <button type="button" class="btn btn-add" id="addContact">+ Tambah kontak</button>
           <div class="err" id="contactsErr" style="display:none;margin-top:10px"></div>
@@ -385,7 +399,7 @@ const FUNC = [
 ];
 const UNIT_TYPES = ['Universitas / Institusi (tingkat pimpinan)','Fakultas','Sekolah / Pascasarjana','Jurusan / Departemen','Program Studi','Lembaga (LPPM, LPM, dsb.)','Pusat / UPT','Biro','Direktorat','Divisi / Bagian / Unit','Pusat Riset / Organisasi Riset (BRIN)','Lainnya'];
 const LEVELS = ['Bachelor (S1)','Master (S2)','Doctoral (S3)','Lainnya / Non-degree'];
-const CONTACT_TYPES = [['email','Email'],['whatsapp','WhatsApp / Telepon'],['website','Web Pribadi'],['linkedin','LinkedIn'],['instagram','Instagram'],['facebook','Facebook'],['x','X (Twitter)'],['address','Alamat Saat Ini']];
+const CONTACT_TYPES = [['email','Email'],['whatsapp','WhatsApp / Telepon'],['website','Web Pribadi'],['linkedin','LinkedIn'],['instagram','Instagram'],['facebook','Facebook'],['x','X (Twitter)']];
 const COUNTRIES = ['Indonesia','Taiwan','Malaysia','Singapura','Jepang','Korea Selatan','Australia','Belanda','Inggris','Amerika Serikat','Arab Saudi'];
 const PROVINCES = ['Aceh','Sumatera Utara','Sumatera Barat','Riau','Kepulauan Riau','Jambi','Sumatera Selatan','Kepulauan Bangka Belitung','Bengkulu','Lampung','DKI Jakarta','Banten','Jawa Barat','Jawa Tengah','DI Yogyakarta','Jawa Timur','Bali','Nusa Tenggara Barat','Nusa Tenggara Timur','Kalimantan Barat','Kalimantan Tengah','Kalimantan Selatan','Kalimantan Timur','Kalimantan Utara','Sulawesi Utara','Gorontalo','Sulawesi Tengah','Sulawesi Barat','Sulawesi Selatan','Sulawesi Tenggara','Maluku','Maluku Utara','Papua','Papua Barat','Papua Barat Daya','Papua Selatan','Papua Tengah','Papua Pegunungan'];
 const STEP_LABELS = ['Identitas','Jabatan','Pendidikan','Kontak','Tanda tangan'];
@@ -477,14 +491,12 @@ function validate(n) {
     ok = mark(req($('#doctoralUniv')), $('#doctoralUniv')) && ok;
   }
   if (n === 4) {
+    ok = validateAddress() && ok;
     const rows = $$('#contacts .rowcard'); let hasMain = false;
     const ce = $('#contactsErr'); ce.style.display = 'none';
     rows.forEach(r => {
       const t = $('.c-type', r).value;
-      if (t === 'address') {
-        ['.a-country', '.a-city', '.a-street'].forEach(s => { ok = mark(req($(s, r)), $(s, r)) && ok; });
-        const pv = $('.a-prov', r); if (pv) ok = mark(req(pv), pv) && ok;
-      } else {
+      {
         const inp = $('.c-val', r); let v = inp.value.trim(), m = '';
         if (!v) m = 'Wajib diisi.';
         else if (t === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) m = 'Format email belum benar.';
@@ -560,6 +572,81 @@ function renumber(sel, title) {
 $('#addStudy').onclick = () => addStudy();
 addStudy();
 
+
+/* ---------- alamat berjenjang ---------- */
+const WIL = 'https://emsifa.github.io/api-wilayah-indonesia/api/';
+const wcache = {};
+const EXTRA_PROV = ['Papua Barat Daya', 'Papua Selatan', 'Papua Tengah', 'Papua Pegunungan'];
+const GEO = { aProv: ['Provinsi', 'provinsi'], aCity: ['Kota / Kabupaten', 'kota/kabupaten'], aDist: ['Kecamatan', 'kecamatan'], aVill: ['Kelurahan / Desa', 'kelurahan/desa'] };
+async function wget(p) { if (wcache[p]) return wcache[p]; const r = await fetch(WIL + p + '.json'); if (!r.ok) throw new Error('wilayah'); return (wcache[p] = await r.json()); }
+function tc(s) { return s.toLowerCase().replace(/(^|[\s\-\/(])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bDki\b/, 'DKI').replace(/\bDi\b/, 'DI'); }
+function geoField(id, items, opts = {}) {
+  const w = $('#w_' + id), [lbl, low] = GEO[id], rq = (id === 'aVill' || (opts.manual && id === 'aDist' && opts.optionalDist)) ? '' : 'req';
+  let ctl;
+  if (items) ctl = `<select id="${id}" ${opts.disabled ? 'disabled' : ''}><option value="">${opts.disabled ? '— Pilih ' + esc(opts.after) + ' dulu —' : '— Pilih ' + low + ' —'}</option>${items.map(i => `<option value="${esc(i.name)}" data-id="${esc(i.id || '')}">${esc(i.name)}</option>`).join('')}</select>`;
+  else ctl = `<input type="text" id="${id}" placeholder="${esc(opts.ph || '')}">`;
+  w.innerHTML = `<label class="${rq}" for="${id}">${lbl}</label>${ctl}<div class="err"></div>`;
+  return $('#' + id);
+}
+const CHAIN = [['aProv', 'aCity', 'regencies'], ['aCity', 'aDist', 'districts'], ['aDist', 'aVill', 'villages']];
+function manualFrom(id) {                  // jadikan kolom ini dan turunannya isian teks
+  let on = false;
+  Object.keys(GEO).forEach(k => { if (k === id) on = true; if (on) geoField(k, null); });
+}
+function lockFrom(id) {                    // kosongkan turunan setelah id
+  let on = false;
+  Object.keys(GEO).forEach(k => { if (on) geoField(k, [], { disabled: true, after: GEO[prevKey(k)][1] }); if (k === id) on = true; });
+}
+function prevKey(k) { const ks = Object.keys(GEO); return ks[ks.indexOf(k) - 1]; }
+function bindChain() {
+  CHAIN.forEach(([parent, child, path]) => {
+    const el = $('#' + parent); if (!el || el.tagName !== 'SELECT') return;
+    el.onchange = async () => {
+      lockFrom(parent);
+      const opt = el.selectedOptions[0]; if (!el.value) return;
+      const id = opt && opt.dataset.id;
+      if (!id) { manualFrom(child); return; }
+      try {
+        const data = await wget(path + '/' + id);
+        geoField(child, data.map(d => ({ id: d.id, name: tc(d.name) })).sort((a, b) => a.name.localeCompare(b.name, 'id')), {});
+        bindChain();
+      } catch (e) { manualFrom(child); }
+    };
+  });
+}
+async function initGeo() {
+  const country = $('#aCountry').value;
+  $('#w_aCountryOther').hidden = country !== '__o';
+  if (country !== 'Indonesia') { Object.keys(GEO).forEach(k => geoField(k, null)); geoField('aDist', null, { manual: true, optionalDist: true }); $('#w_aVill').hidden = true; return; }
+  $('#w_aVill').hidden = false;
+  try {
+    const prov = await wget('provinces');
+    const items = prov.map(p => ({ id: p.id, name: tc(p.name) }));
+    EXTRA_PROV.forEach(n => { if (!items.some(i => i.name === n)) items.push({ id: '', name: n }); });
+    items.sort((a, b) => a.name.localeCompare(b.name, 'id'));
+    geoField('aProv', items, {});
+    lockFrom('aProv'); bindChain();
+  } catch (e) {
+    Object.keys(GEO).forEach(k => geoField(k, null));
+  }
+}
+$('#aCountry').innerHTML = COUNTRIES.map(c => `<option>${c}</option>`).join('') + '<option value="__o">Lainnya…</option>';
+$('#aCountry').onchange = initGeo;
+initGeo();
+function collectAddress() {
+  const g = id => { const e = $('#' + id); return e && !e.closest('[hidden]') ? e.value.trim() : ''; };
+  const cv = $('#aCountry').value;
+  return { country: cv === '__o' ? $('#aCountryOther').value.trim() : cv, province: g('aProv'), city: g('aCity'), district: g('aDist'), village: g('aVill'), postal: $('#aPostal').value.trim(), street: $('#aStreet').value.trim() };
+}
+function validateAddress() {
+  let ok = true;
+  const need = id => { const e = $('#' + id); if (!e || e.closest('[hidden]')) return; ok = mark(req(e), e) && ok; };
+  if ($('#aCountry').value === '__o') need('aCountryOther');
+  ['aProv', 'aCity', 'aStreet'].forEach(need);
+  if ($('#aCountry').value === 'Indonesia') need('aDist');
+  return ok;
+}
+
 /* ---------- step 4: contacts ---------- */
 const PLACEHOLDERS = { email: 'nama@kampus.ac.id', whatsapp: '+62 812 3456 7890', website: 'https://contoh.com', linkedin: 'linkedin.com/in/nama-anda', instagram: '@username', facebook: 'facebook.com/nama.anda', x: '@username' };
 function addContact(type = '') {
@@ -575,27 +662,7 @@ function addContact(type = '') {
 function renderContactBody(d) {
   const t = $('.c-type', d).value, b = $('.c-body', d);
   if (!t) { b.innerHTML = ''; return; }
-  if (t === 'address') {
-    b.innerHTML = `
-      <div class="grid2">
-        <div class="field"><label class="req">Negara</label><select class="a-country">${COUNTRIES.map(c => `<option>${c}</option>`).join('')}<option value="__o">Lainnya…</option></select><div class="err"></div></div>
-        <div class="field a-prov-wrap"><label class="req">Provinsi</label><select class="a-prov"><option value="">— Pilih provinsi —</option>${PROVINCES.map(p => `<option>${p}</option>`).join('')}</select><div class="err"></div></div>
-      </div>
-      <div class="field a-co-wrap" hidden><label class="req">Nama negara</label><input type="text" class="a-co" placeholder="Nama negara"><div class="err"></div></div>
-      <div class="grid2">
-        <div class="field"><label class="req">Kota / Kabupaten</label><input type="text" class="a-city" placeholder="mis. Kota Bengkulu"><div class="err"></div></div>
-        <div class="field"><label>Kode pos</label><input type="text" class="a-postal" inputmode="numeric"></div>
-      </div>
-      <div class="field" style="margin-bottom:0"><label class="req">Alamat (jalan, nomor, kelurahan/kecamatan)</label><input type="text" class="a-street"><div class="err"></div></div>`;
-    const cs = $('.a-country', b);
-    cs.onchange = () => {
-      const w = $('.a-prov-wrap', b), isID = cs.value === 'Indonesia';
-      $('.a-co-wrap', b).hidden = cs.value !== '__o';
-      w.innerHTML = isID
-        ? `<label class="req">Provinsi</label><select class="a-prov"><option value="">— Pilih provinsi —</option>${PROVINCES.map(p => `<option>${p}</option>`).join('')}</select><div class="err"></div>`
-        : `<label class="req">Provinsi / Negara bagian / Wilayah</label><input type="text" class="a-prov"><div class="err"></div>`;
-    };
-  } else {
+  {
     const itype = t === 'email' ? 'email' : t === 'whatsapp' ? 'tel' : 'text';
     b.innerHTML = `<div class="field" style="margin-bottom:0"><label class="req">${esc(CONTACT_TYPES.find(x => x[0] === t)[1])}</label><input type="${itype}" class="c-val" placeholder="${esc(PLACEHOLDERS[t] || '')}" ${t === 'email' ? 'autocomplete="email"' : ''}><div class="err"></div></div>`;
     if (t === 'whatsapp') $('.c-val', b).addEventListener('blur', e => { let v = e.target.value.trim().replace(/[\s\-()]/g, ''); if (/^0\d{8,}$/.test(v)) e.target.value = '+62' + v.slice(1); });
@@ -611,18 +678,14 @@ function collect() {
   const studies = $$('#studies .rowcard').map(r => ({ level: $('.s-level', r).value, dept: $('.s-dept', r).value.trim(), college: $('.s-college', r).value.trim(), yearIn: $('.s-in', r).value, yearOut: $('.s-out', r).value }));
   const contacts = $$('#contacts .rowcard').map(r => {
     const type = $('.c-type', r).value;
-    if (type === 'address') {
-      const cv = $('.a-country', r).value;
-      return { type, country: cv === '__o' ? $('.a-co', r).value.trim() : cv, province: $('.a-prov', r).value.trim(), city: $('.a-city', r).value.trim(), postal: $('.a-postal', r).value.trim(), street: $('.a-street', r).value.trim() };
-    }
     let value = $('.c-val', r).value.trim();
     if (type === 'website' && !/^https?:\/\//i.test(value)) value = 'https://' + value;
     return { type, value };
   });
-  return { fullName: $('#fullName').value.trim().replace(/\s+/g, ' '), structural: structs, functional: func, unitType: $('#unitType').value, unitName: $('#unitName').value.trim(), institution: $('#institution').value.trim(), doctoralUniv: $('#doctoralUniv').value.trim(), studies, contacts };
+  return { fullName: $('#fullName').value.trim().replace(/\s+/g, ' '), structural: structs, functional: func, unitType: $('#unitType').value, unitName: $('#unitName').value.trim(), institution: $('#institution').value.trim(), doctoralUniv: $('#doctoralUniv').value.trim(), studies, contacts, address: collectAddress() };
 }
 const CT_LABEL = Object.fromEntries(CONTACT_TYPES);
-function addrStr(a) { return [a.street, a.city, a.province, a.country].filter(Boolean).join(', ') + (a.postal ? ' ' + a.postal : ''); }
+function addrStr(a) { return [a.street, a.village, a.district, a.city, a.province, a.country].filter(Boolean).join(', ') + (a.postal ? ' ' + a.postal : ''); }
 
 function buildReview() {
   const d = collect();
@@ -631,7 +694,7 @@ function buildReview() {
     <div class="rev"><h4>Identitas</h4><dl><div class="revtop"><img src="${photoData}" alt="Foto"><div style="flex:1">${row('Nama lengkap', d.fullName)}</div></div></dl></div>
     <div class="rev"><h4>Jabatan &amp; Afiliasi</h4><dl>${row('Jabatan struktural', d.structural.join('; ').replace(/ \| /g, ' / '))}${row('Jabatan fungsional', d.functional)}${row('Unit', d.unitName + ' (' + d.unitType + ')')}${row('Institusi', d.institution)}</dl></div>
     <div class="rev"><h4>Pendidikan</h4><dl>${d.studies.map(s => row(s.level + ' di AU', `${s.dept}, ${s.college} (${s.yearIn}–${s.yearOut})`)).join('')}${row('Kampus studi doktor', d.doctoralUniv)}</dl></div>
-    <div class="rev"><h4>Kontak</h4><dl>${d.contacts.map(c => row(CT_LABEL[c.type], c.type === 'address' ? addrStr(c) : c.value)).join('')}</dl></div>`;
+    <div class="rev"><h4>Alamat &amp; Kontak</h4><dl>${row('Alamat saat ini', addrStr(d.address))}${d.contacts.map(c => row(CT_LABEL[c.type], c.value)).join('')}</dl></div>`;
 }
 
 /* ---------- signature ---------- */
@@ -662,6 +725,7 @@ function sigData() {
 /* ---------- submit ---------- */
 async function submitForm() {
   const payload = collect();
+  payload.contacts = payload.contacts.concat([Object.assign({ type: 'address' }, payload.address)]); delete payload.address;
   payload.photo = photoData; payload.signature = sigData(); payload.hp = $('#hp').value;
   payload.consent = { c0: $('#consent0').checked, c1: $('#consent1').checked, c2: $('#consent2').checked };
   payload.clientTime = new Date().toISOString(); payload.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
