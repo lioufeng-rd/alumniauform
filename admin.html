@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>Admin · AU Alumni Registry</title>
+<style>
+:root{--ink:#0f1b33;--gold:#b8934a;--line:#e6dfd0;--muted:#68718a}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#faf7f1;color:var(--ink)}
+.top{background:linear-gradient(160deg,#0f1b33,#1d2d52);color:#fff;padding:26px 20px}.top h1{margin:0;font-size:22px}.top p{margin:4px 0 0;color:#c9d0e2;font-size:13.5px}
+main{max-width:980px;margin:-14px auto 40px;padding:0 14px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:0 12px 30px -20px rgba(15,27,51,.4)}
+input{font:inherit;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;width:100%;max-width:320px}
+button{font:inherit;font-weight:600;border-radius:10px;padding:11px 18px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+button.g{background:#fff;color:var(--ink)}button:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}.stat{background:#f7f2e6;border-radius:12px;padding:10px 16px}.stat b{font-size:22px;display:block}
+.act{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tag{font-size:11.5px;padding:2px 8px;border-radius:99px;background:#e6f4ec;color:#1f7a54}.tag.n{background:#fff4d6;color:#8a6a1e}
+#msg{margin-top:10px;font-size:14px}.err{color:#b3261e}.ok{color:#1f7a54}.wrapx{overflow-x:auto}
+</style></head><body>
+<div class="top"><h1>Admin · AU Alumni Indonesia Registry</h1><p>Hanya untuk koordinator. Jangan bagikan tautan dan password ini.</p></div>
+<main>
+ <div class="card" id="login"><label><b>Password admin</b></label><br><br>
+  <input type="password" id="pw" autocomplete="current-password"> <button id="go">Masuk</button><div id="lmsg" class="err" style="margin-top:8px"></div></div>
+ <div class="card" id="panel" hidden>
+  <div class="stats"><div class="stat"><b id="sTot">0</b>Total pengisi</div><div class="stat"><b id="sUns">0</b>Belum dikirim ke AU</div></div>
+  <div>Penerima: <b id="rcpt"></b> (PDF berbahasa Inggris, tembusan ke email Anda)</div>
+  <div class="act"><button id="sendNew">Kirim PDF yang belum terkirim</button><button class="g" id="sendAll">Kirim ulang semua PDF</button><button class="g" id="reload">Muat ulang</button></div>
+  <div id="msg"></div>
+  <div class="wrapx"><table><thead><tr><th>#</th><th>Nama</th><th>Jabatan</th><th>Institusi</th><th>Diisi</th><th>Status</th></tr></thead><tbody id="tb"></tbody></table></div>
+ </div>
+</main>
+<script>
+const GAS_URL='https://script.google.com/macros/s/AKfycbza5yq8aZH5Oo-yOwLPbmivJPY3k2TvhVJ8QmjuQvvNWwkTgRboiWgxelKnZFUZbjeQ/exec';
+const $=s=>document.querySelector(s);let PW='',RCPT='';
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function call(body){const r=await fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({password:PW},body)),redirect:'follow'});const j=await r.json();if(!j.ok)throw new Error(j.error||'Gagal');return j}
+async function load(){const j=await call({action:'admin_list'});RCPT=j.recipient;$('#rcpt').textContent=RCPT;
+ $('#sTot').textContent=j.rows.length;$('#sUns').textContent=j.rows.filter(r=>!r.sent).length;
+ $('#tb').innerHTML=j.rows.map((r,i)=>`<tr><td>${i+1}</td><td><b>${esc(r.name)}</b></td><td>${esc(String(r.position).replace(/ \| /g,' / '))}</td><td>${esc(r.institution)}</td><td>${esc(r.time)}</td><td>${r.sent?`<span class="tag">Terkirim ${esc(r.sent)}</span>`:'<span class="tag n">Belum</span>'}</td></tr>`).join('')||'<tr><td colspan="6">Belum ada data.</td></tr>'}
+$('#go').onclick=async()=>{PW=$('#pw').value;$('#lmsg').textContent='';$('#go').disabled=true;try{await load();$('#login').hidden=true;$('#panel').hidden=false}catch(e){$('#lmsg').textContent=e.message}$('#go').disabled=false};
+$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#go').click()});
+$('#reload').onclick=()=>load().catch(e=>{$('#msg').className='err';$('#msg').textContent=e.message});
+async function send(mode){const n=mode==='all'?'SEMUA PDF':'PDF yang belum terkirim';
+ if(!confirm('Kirim '+n+' ke '+RCPT+' sekarang? Email tidak dapat ditarik kembali.'))return;
+ const b=[$('#sendNew'),$('#sendAll')];b.forEach(x=>x.disabled=true);$('#msg').className='';$('#msg').textContent='Mengirim, mohon tunggu…';
+ try{const j=await call({action:'admin_send',mode});$('#msg').className='ok';$('#msg').textContent=j.message;await load()}catch(e){$('#msg').className='err';$('#msg').textContent=e.message}
+ b.forEach(x=>x.disabled=false)}
+$('#sendNew').onclick=()=>send('unsent');$('#sendAll').onclick=()=>send('all');
+</script></body></html>
