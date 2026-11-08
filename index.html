@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f1b33">
+<title>Pendataan Alumni Terkemuka Asia University di Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1b33; --ink-2:#1d2d52; --gold:#b8934a; --gold-soft:#f3ead6;
+  --ivory:#faf7f1; --paper:#fff; --line:#e6dfd0; --muted:#68718a;
+  --danger:#b3261e; --ok:#1f7a54; --radius:16px;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--ivory);line-height:1.55;-webkit-font-smoothing:antialiased}
+.hero{background:radial-gradient(1200px 400px at 85% -20%,rgba(184,147,74,.35),transparent 60%),linear-gradient(160deg,var(--ink) 0%,var(--ink-2) 100%);color:#fff;padding:44px 20px 110px}
+.hero-inner{max-width:860px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(26px,5vw,40px);line-height:1.15;margin:10px 0 10px}
+.hero p{margin:0;max-width:620px;color:#c9d0e2;font-size:15px}
+.wrap{max-width:860px;margin:-76px auto 60px;padding:0 16px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 60px -28px rgba(15,27,51,.35);overflow:hidden}
+.stepper{padding:22px 24px 6px;border-bottom:1px solid var(--line);background:linear-gradient(#fff,#fffdf9)}
+.steps{display:flex;justify-content:space-between;gap:6px;margin:0;padding:0;list-style:none}
+.steps li{flex:1;text-align:center;font-size:11.5px;color:var(--muted);position:relative}
+.steps .dot{width:28px;height:28px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;font-size:12px;font-weight:600;border:1.5px solid var(--line);background:#fff;transition:.25s}
+.steps li.active .dot{background:var(--ink);color:#fff;border-color:var(--ink)}
+.steps li.done .dot{background:var(--gold);border-color:var(--gold);color:#fff}
+.steps li.active{color:var(--ink);font-weight:600}
+.bar{height:3px;background:var(--line);margin:14px -24px 0;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--gold),#d9b872);width:0;transition:width .35s ease}
+.body{padding:28px 24px 8px}
+section.step{display:none;animation:in .35s ease both}
+section.step.show{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){section.step{animation:none}.bar i{transition:none}}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0 0 4px}
+.lead{color:var(--muted);margin:0 0 22px;font-size:14.5px}
+.field{margin-bottom:18px}
+.field>label,.lbl{display:block;font-weight:600;font-size:13.5px;margin-bottom:6px}
+.field .hint{font-size:12.5px;color:var(--muted);margin-top:5px}
+.req::after{content:" *";color:var(--gold)}
+input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{
+  width:100%;font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);transition:border-color .15s, box-shadow .15s;appearance:none;-webkit-appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2368718a' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(184,147,74,.18)}
+.has-error input,.has-error select,.has-error .chips,.has-error .sigwrap,.has-error .photo-drop{border-color:var(--danger)}
+.err{color:var(--danger);font-size:12.5px;margin-top:5px;display:none}
+.has-error .err{display:block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:620px){.grid2,.grid3{grid-template-columns:1fr}.steps li span.t{display:none}.body{padding:22px 18px 6px}.stepper{padding:18px 18px 6px}.bar{margin:14px -18px 0}}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;border:1.5px solid transparent;border-radius:12px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.chip span{display:inline-block;padding:9px 14px;border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;background:#fff;transition:.15s;cursor:pointer}
+.chip small{display:block;font-size:11px;color:var(--muted);line-height:1.2}
+.chip input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip input:checked+span small{color:#c9d0e2}
+.chip input:focus-visible+span{box-shadow:0 0 0 4px rgba(184,147,74,.3)}
+/* repeatable rows */
+.rowcard{border:1.5px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;background:#fffdf9;position:relative}
+.rowcard .rm{position:absolute;top:10px;right:10px;border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;padding:4px 8px;border-radius:8px}
+.rowcard .rm:hover{background:#f4eadf;color:var(--danger)}
+.rowtitle{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.btn{font:inherit;font-size:15px;font-weight:600;border-radius:12px;padding:13px 22px;border:1.5px solid transparent;cursor:pointer;transition:.15s}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:var(--ink-2)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-add{background:var(--gold-soft);color:#6d5420;border-color:#ead9b2;padding:10px 16px;font-size:14px}
+.nav{display:flex;justify-content:space-between;gap:10px;padding:18px 24px 26px}
+@media(max-width:620px){.nav{padding:16px 18px 24px}}
+/* info */
+.tabs{display:inline-flex;background:#f4efe3;border-radius:999px;padding:4px;margin-bottom:16px}
+.tabs button{border:0;background:transparent;font:inherit;font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;cursor:pointer;color:var(--muted)}
+.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.info{border:1px solid var(--line);border-radius:14px;padding:6px 18px;background:#fffdf9;max-height:420px;overflow:auto}
+.info h3{font-family:var(--serif);font-size:16px;margin:16px 0 4px}
+.info p,.info li{font-size:14px;color:#2b3855;margin:0 0 8px}
+.info ul{padding-left:18px;margin:0 0 8px}
+.callout{background:var(--gold-soft);border-left:3px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:13.5px;margin:10px 0}
+.check{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1.5px solid var(--line);border-radius:12px;margin-top:14px;cursor:pointer;background:#fff}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--ink);flex:none}
+.check span{font-size:14px}
+.has-error.check,.check.has-error{border-color:var(--danger)}
+/* photo */
+.photo-drop{display:flex;gap:18px;align-items:center;border:1.5px dashed #d6cbb0;border-radius:16px;padding:18px;background:#fffdf9;flex-wrap:wrap}
+.photo-prev{width:112px;aspect-ratio:4/5;border-radius:12px;background:#efe8d8 center/cover no-repeat;display:grid;place-items:center;color:#a49670;font-size:12px;text-align:center;flex:none;overflow:hidden}
+.photo-prev svg{width:44px;height:44px;opacity:.6}
+/* signature */
+.sigwrap{border:1.5px solid var(--line);border-radius:14px;background:#fff;position:relative;overflow:hidden}
+#sig{display:block;width:100%;height:190px;touch-action:none;cursor:crosshair}
+.sigline{position:absolute;left:18px;right:18px;bottom:46px;border-bottom:1px dashed #cfc4a8;pointer-events:none}
+.sigcap{position:absolute;left:18px;bottom:14px;font-size:12px;color:var(--muted);pointer-events:none}
+.sigtools{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.linkbtn{background:none;border:0;color:var(--ink);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:0}
+/* review */
+.rev{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.rev h4{margin:0;padding:10px 16px;background:#f7f2e6;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6d5420}
+.rev dl{margin:0;padding:6px 16px 10px}
+.rev dt{font-size:12px;color:var(--muted);margin-top:8px}
+.rev dd{margin:0;font-size:14.5px;word-break:break-word}
+.revtop{display:flex;gap:16px;align-items:flex-start}
+.revtop img{width:96px;border-radius:10px;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line)}
+/* overlay + success */
+.overlay{position:fixed;inset:0;background:rgba(15,27,51,.78);display:none;place-items:center;z-index:50;color:#fff;text-align:center;padding:24px}
+.overlay.show{display:grid}
+.spin{width:44px;height:44px;border:4px solid rgba(255,255,255,.25);border-top-color:var(--gold);border-radius:50%;margin:0 auto 14px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.success{text-align:center;padding:30px 10px 40px}
+.success .ok{width:68px;height:68px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;margin:0 auto 16px;font-size:34px}
+.idbox{display:inline-block;background:var(--gold-soft);border:1px solid #ead9b2;border-radius:10px;padding:8px 16px;font-weight:600;letter-spacing:.04em;margin:8px 0 18px}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+footer{max-width:860px;margin:0 auto 40px;padding:0 20px;color:var(--muted);font-size:12.5px;text-align:center}
+.demo{background:#fff4d6;border:1px solid #ecd48a;color:#6d5420;font-size:12.5px;padding:8px 14px;text-align:center}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Asia University · Taiwan &nbsp;|&nbsp; Alumni Indonesia</div>
+    <h1>Pendataan Alumni Terkemuka<br>Distinguished Alumni Registry</h1>
+    <p>Formulir resmi pengumpulan data alumni Asia University yang menduduki posisi kepemimpinan di perguruan tinggi dan lembaga riset di Indonesia.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card" id="card">
+    <div id="demoBar" class="demo" hidden>Mode demo: URL GAS belum diisi, data tidak dikirim ke mana pun.</div>
+    <div class="stepper" id="stepper" hidden>
+      <ol class="steps" id="steps"></ol>
+      <div class="bar"><i id="barfill"></i></div>
+    </div>
+
+    <form id="form" novalidate autocomplete="on">
+      <div class="body">
+
+        <!-- STEP 0: INFORMASI -->
+        <section class="step show" data-step="0">
+          <h2>Informasi &amp; Persetujuan</h2>
+          <p class="lead">Mohon baca informasi berikut sebelum mengisi formulir. Waktu pengisian sekitar 8–10 menit.</p>
+          <div class="tabs" role="tablist">
+            <button type="button" class="on" data-lang="id">Bahasa Indonesia</button>
+            <button type="button" data-lang="en">English</button>
+          </div>
+
+          <div class="info" id="info-id">
+            <h3>1. Latar belakang</h3>
+            <p>Atas permintaan <b>Prof. (E) Yinghuei Chen, Ph.D</b>, Senior Consultant for International Affairs, Asia University (AU) Taiwan, dilakukan pendataan alumni AU di Indonesia yang memegang posisi penting di perguruan tinggi atau lembaga riset. Prof. Chen berencana mengusulkan kebijakan baru, yaitu mengangkat alumni terkemuka sebagai <b>Adjunct Assistant / Associate / Full Professor</b> di AU sebagai bentuk rekognisi internasional bagi alumni dan institusi asalnya.</p>
+            <div class="callout"><b>Perlu diketahui:</b> kebijakan ini masih berupa usulan. Mengisi formulir ini tidak menjamin atau menjanjikan pengangkatan. Keputusan sepenuhnya berada pada pihak berwenang di AU.</div>
+            <h3>2. Siapa yang diminta mengisi</h3>
+            <p>Alumni AU di Indonesia yang saat ini menjabat sebagai Rektor, Wakil Rektor, Direktur, Wakil Direktur, Dekan, Wakil Dekan, Ketua Departemen/Jurusan/Program Studi, atau Kepala Unit/Biro/Divisi di perguruan tinggi maupun lembaga riset (misalnya BRIN).</p>
+            <h3>3. Data yang dikumpulkan</h3>
+            <ul>
+              <li>Nama lengkap (tanpa gelar) dan foto close-up</li>
+              <li>Jabatan struktural dan fungsional, serta afiliasi saat ini</li>
+              <li>Riwayat studi di AU (departemen, college, tahun masuk dan lulus) dan kampus studi doktor</li>
+              <li>Informasi kontak yang Anda pilih sendiri: email, WhatsApp, situs pribadi, media sosial, alamat saat ini</li>
+              <li>Tanda tangan elektronik dan waktu pengisian</li>
+            </ul>
+            <h3>4. Penggunaan dan penerima data</h3>
+            <p>Data dipakai untuk menyusun daftar alumni terkemuka AU di Indonesia dan disampaikan kepada Prof. Yinghuei Chen serta pihak berwenang di Asia University (Taiwan) untuk pertimbangan kebijakan di atas. Itu berarti data Anda akan dikirim ke luar negeri (Taiwan). Data tidak dijual dan tidak dipakai untuk iklan.</p>
+            <h3>5. Penyimpanan dan keamanan</h3>
+            <p>Data disimpan di Google Sheets dan Google Drive milik koordinator pendataan dengan akses terbatas. Setiap pengisi menghasilkan satu berkas PDF yang memuat data dan tanda tangan Anda. Salinan PDF dikirim ke email Anda bila Anda mencantumkan alamat email. Pengelolaan mengacu pada UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.</p>
+            <h3>6. Hak Anda</h3>
+            <p>Anda dapat meminta koreksi atau penghapusan data, atau menarik persetujuan, kapan saja dengan menghubungi koordinator: <b>Andi Azhar, Ph.D</b> (Universitas Muhammadiyah Bengkulu)<span class="contact-mail"></span>. Penarikan tidak berlaku surut bagi data yang sudah diteruskan kepada AU.</p>
+            <h3>7. Yang perlu disiapkan</h3>
+            <p>Foto close-up wajah (latar polos lebih baik), dan informasi kontak aktif. Tanda tangan dibuat langsung di layar dengan jari atau stylus.</p>
+          </div>
+
+          <div class="info" id="info-en" hidden>
+            <h3>1. Background</h3>
+            <p>At the request of <b>Prof. (E) Yinghuei Chen, Ph.D</b>, Senior Consultant for International Affairs, Asia University (AU), Taiwan, we are compiling a list of AU alumni in Indonesia who hold key positions at universities or research institutions. Prof. Chen intends to propose a new policy of appointing distinguished alumni as <b>Adjunct Assistant / Associate / Full Professors</b> of AU, as an international recognition for the alumni and their home institutions.</p>
+            <div class="callout"><b>Please note:</b> this policy is still a proposal. Completing this form does not guarantee or promise any appointment. Decisions rest entirely with the competent authorities at AU.</div>
+            <h3>2. Who should respond</h3>
+            <p>AU alumni in Indonesia currently serving as Rector, Vice Rector, Director, Vice Director, Dean, Vice Dean, Department/Program Chair, or Head of a Unit/Bureau/Division at a university or research institution (e.g., BRIN).</p>
+            <h3>3. Data collected</h3>
+            <ul>
+              <li>Full name (without titles) and a close-up photo</li>
+              <li>Structural and functional position, and current affiliation</li>
+              <li>AU study history (department, college, entry and graduation years) and the university of your doctoral studies</li>
+              <li>Contact details you choose to give: email, WhatsApp, personal website, social media, current address</li>
+              <li>Electronic signature and time of submission</li>
+            </ul>
+            <h3>4. Use and recipients</h3>
+            <p>Your data is used to compile a list of distinguished AU alumni in Indonesia and will be shared with Prof. Yinghuei Chen and the competent authorities at Asia University (Taiwan) to inform the policy above. This means your data will be transferred abroad (Taiwan). It is not sold and not used for advertising.</p>
+            <h3>5. Storage and security</h3>
+            <p>Data is stored in Google Sheets and Google Drive managed by the survey coordinator, with restricted access. Each respondent generates one PDF containing their data and signature. A copy is emailed to you if you provide an email address. Handling follows Indonesia's Personal Data Protection Law (Law No. 27 of 2022).</p>
+            <h3>6. Your rights</h3>
+            <p>You may request correction or deletion of your data, or withdraw your consent, at any time by contacting the coordinator: <b>Andi Azhar, Ph.D</b> (Universitas Muhammadiyah Bengkulu)<span class="contact-mail"></span>. Withdrawal does not apply retroactively to data already passed on to AU.</p>
+            <h3>7. What to prepare</h3>
+            <p>A close-up portrait photo (plain background preferred) and your active contact details. You will sign directly on screen with a finger or stylus.</p>
+          </div>
+
+          <label class="check" id="c0wrap">
+            <input type="checkbox" id="consent0">
+            <span><b>Persetujuan awal.</b> Saya telah membaca informasi di atas dan <b>bersedia mengisi</b> data pada formulir ini secara jujur dan akurat.<br><i style="color:var(--muted)">I have read the information above and am willing to complete this form truthfully and accurately.</i></span>
+          </label>
+        </section>
+
+        <!-- STEP 1: IDENTITAS -->
+        <section class="step" data-step="1">
+          <h2>Identitas</h2>
+          <p class="lead">Nama dan foto akan tampil pada daftar dan berkas PDF Anda.</p>
+          <div class="field">
+            <label class="req" for="fullName">Nama Lengkap (tanpa gelar) · Full Name (no titles)</label>
+            <input type="text" id="fullName" placeholder="mis. Andi Azhar" autocomplete="name">
+            <div class="hint">Tuliskan seperti pada ijazah AU. Gelar akademik tidak perlu dicantumkan.</div>
+            <div class="err"></div>
+          </div>
+          <div class="field" id="photoField">
+            <label class="req">Foto Close-up · Close-up Photo</label>
+            <div class="photo-drop">
+              <div class="photo-prev" id="photoPrev">
+                <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6" stroke-linecap="round"/></svg><br>Belum ada foto</div>
+              </div>
+              <div style="flex:1;min-width:200px">
+                <input type="file" id="photoFile" accept="image/*" hidden>
+                <button type="button" class="btn btn-ghost" id="photoBtn">Pilih / ambil foto</button>
+                <div class="hint">Wajah terlihat jelas, menghadap kamera, latar sederhana. Foto otomatis dipotong rasio 4:5 dan dikompres.</div>
+              </div>
+            </div>
+            <div class="err"></div>
+          </div>
+        </section>
+
+        <!-- STEP 2: JABATAN -->
+        <section class="step" data-step="2">
+          <h2>Jabatan &amp; Afiliasi</h2>
+          <p class="lead">Isi sesuai posisi Anda saat ini.</p>
+
+          <div class="field" id="structField">
+            <div class="lbl req">Jabatan Struktural Saat Ini · Current Structural Position <span style="font-weight:400;color:var(--muted)">(boleh lebih dari satu)</span></div>
+            <div class="chips" id="structChips"></div>
+            <div id="structOtherWrap" hidden style="margin-top:10px"><input type="text" id="structOther" placeholder="Sebutkan jabatan lainnya"></div>
+            <div class="err"></div>
+          </div>
+
+          <div class="field">
+            <label class="req" for="functional">Jabatan Fungsional Saat Ini · Current Functional / Academic Rank</label>
+            <select id="functional"></select>
+            <div id="funcOtherWrap" hidden style="margin-top:10px"><input type="text" id="funcOther" placeholder="Sebutkan jabatan fungsional"></div>
+            <div class="err"></div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label class="req" for="unitType">Jenis Unit Tempat Menjabat</label>
+              <select id="unitType"></select>
+              <div class="err"></div>
+            </div>
+            <div class="field">
+              <label class="req" for="unitName">Nama Unit / Prodi / Fakultas</label>
+              <input type="text" id="unitName" placeholder="mis. Program Studi Manajemen">
+              <div class="err"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="req" for="institution">Nama Kampus / Institusi Riset · University / Research Institution</label>
+            <input type="text" id="institution" placeholder="mis. Universitas Muhammadiyah Bengkulu">
+            <div class="err"></div>
+          </div>
+        </section>
+
+        <!-- STEP 3: PENDIDIKAN -->
+        <section class="step" data-step="3">
+          <h2>Pendidikan</h2>
+          <p class="lead">Tambahkan satu entri untuk setiap jenjang yang Anda tempuh di AU (misalnya S2 dan S3).</p>
+          <div id="studies"></div>
+          <button type="button" class="btn btn-add" id="addStudy">+ Tambah jenjang studi di AU</button>
+          <div class="field" style="margin-top:24px">
+            <label class="req" for="doctoralUniv">Kampus Tempat Studi Doktor · University of Doctoral Study</label>
+            <input type="text" id="doctoralUniv" placeholder="mis. Asia University, Taiwan">
+            <div class="hint">Jika studi doktor Anda di AU, tuliskan Asia University.</div>
+            <div class="err"></div>
+          </div>
+          <datalist id="colleges">
+            <option value="College of Management">
+            <option value="College of Health">
+            <option value="College of Medical and Health Science">
+            <option value="College of Information and Electrical Engineering">
+            <option value="College of Humanities and Social Sciences">
+          </datalist>
+        </section>
+
+        <!-- STEP 4: KONTAK -->
+        <section class="step" data-step="4">
+          <h2>Informasi Kontak</h2>
+          <p class="lead">Pilih jenis kontak, lalu isi. Anda boleh menambahkan beberapa. Minimal satu email atau WhatsApp.</p>
+          <div id="contacts"></div>
+          <button type="button" class="btn btn-add" id="addContact">+ Tambah kontak</button>
+          <div class="err" id="contactsErr" style="display:none;margin-top:10px"></div>
+        </section>
+
+        <!-- STEP 5: TINJAU & TTD -->
+        <section class="step" data-step="5">
+          <h2>Tinjau &amp; Tanda Tangan</h2>
+          <p class="lead">Periksa ringkasan data, lalu setujui dan tanda tangani.</p>
+          <div id="review"></div>
+
+          <label class="check" id="c1wrap">
+            <input type="checkbox" id="consent1">
+            <span>Saya menyatakan bahwa data di atas <b>benar</b> dan saya <b>menyetujui</b> data tersebut diproses dan diteruskan kepada Prof. Yinghuei Chen dan pihak berwenang Asia University (Taiwan) untuk keperluan pertimbangan kebijakan Adjunct Professor.<br><i style="color:var(--muted)">I declare the data above is true and consent to it being processed and shared with Prof. Yinghuei Chen and the competent authorities of Asia University (Taiwan) for the Adjunct Professor policy consideration.</i></span>
+          </label>
+          <label class="check" id="c2wrap">
+            <input type="checkbox" id="consent2">
+            <span>Saya memahami bahwa pengisian ini <b>tidak menjamin pengangkatan</b>, dan saya mengizinkan penggunaan foto serta kontak saya dalam daftar tersebut.<br><i style="color:var(--muted)">I understand that submission does not guarantee any appointment, and I permit the use of my photo and contact details in the list.</i></span>
+          </label>
+
+          <div class="field" style="margin-top:20px" id="sigField">
+            <div class="lbl req">Tanda Tangan · Signature</div>
+            <div class="sigwrap">
+              <canvas id="sig"></canvas>
+              <div class="sigline"></div>
+              <div class="sigcap" id="sigcap">Tanda tangan di sini dengan jari / stylus / mouse</div>
+            </div>
+            <div class="sigtools"><span id="signame"></span><button type="button" class="linkbtn" id="sigClear">Hapus &amp; ulangi</button></div>
+            <div class="err"></div>
+          </div>
+          <div class="hp" aria-hidden="true"><label>Website <input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+        </section>
+
+        <!-- SUCCESS -->
+        <section class="step" data-step="6">
+          <div class="success">
+            <div class="ok">✓</div>
+            <h2>Terima kasih, <span id="okName"></span></h2>
+            <p class="lead" style="margin-bottom:6px">Data dan tanda tangan Anda telah tersimpan.</p>
+            <div class="idbox" id="okId"></div>
+            <p class="lead" id="okMail" style="margin:0 auto 18px;max-width:460px"></p>
+            <button type="button" class="btn btn-primary" id="dlPdf" hidden>Unduh salinan PDF</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="nav" id="nav">
+        <button type="button" class="btn btn-ghost" id="prev" style="visibility:hidden">Kembali</button>
+        <button type="button" class="btn btn-primary" id="next" disabled>Mulai mengisi</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer>Pendataan ini dikoordinasikan oleh Andi Azhar, Ph.D (UMB) atas permintaan Prof. Yinghuei Chen, Asia University. Bukan formulir resmi penerimaan atau pengangkatan.</footer>
+
+<div class="overlay" id="overlay"><div><div class="spin"></div><div id="ovMsg">Menyimpan data dan membuat PDF…</div><div style="font-size:12.5px;color:#c9d0e2;margin-top:6px">Mohon jangan tutup halaman ini.</div></div></div>
+
+<script>
+/* ============ KONFIGURASI ============ */
+const CONFIG = {
+  GAS_URL: 'https://script.google.com/macros/s/AKfycbza5yq8aZH5Oo-yOwLPbmivJPY3k2TvhVJ8QmjuQvvNWwkTgRboiWgxelKnZFUZbjeQ/exec',   // URL /exec hasil deploy Apps Script
+  CONTACT_EMAIL: 'andiazhar@umb.ac.id',       // opsional: email koordinator untuk hak data
+  YEAR_MIN: 1985
+};
+/* ===================================== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const IS_DEMO = !/^https:\/\/script\.google\.com\//.test(CONFIG.GAS_URL);
+
+const STRUCT = [
+  ['Rektor','Rector'],['Wakil Rektor','Vice Rector'],
+  ['Direktur','Director'],['Wakil Direktur','Vice Director'],
+  ['Dekan','Dean'],['Wakil Dekan','Vice Dean'],
+  ['Ketua Jurusan / Departemen','Department Chair'],['Ketua Program Studi (Kaprodi)','Program Head'],
+  ['Kepala Lembaga / Pusat','Head of Institute / Center'],['Kepala Biro','Head of Bureau'],
+  ['Kepala Unit / Divisi / Bagian','Head of Unit / Division'],['Kepala Pusat Riset / Organisasi Riset','Head of Research Center']
+];
+const FUNC = [
+  ['Akademik / Dosen', ['Tenaga Pengajar','Asisten Ahli','Lektor','Lektor Kepala','Profesor (Guru Besar)']],
+  ['Peneliti (BRIN / lembaga riset)', ['Peneliti Ahli Pertama','Peneliti Ahli Muda','Peneliti Ahli Madya','Peneliti Ahli Utama (Profesor Riset)']],
+  ['Lainnya', ['Belum memiliki jabatan fungsional','Lainnya (isi sendiri)']]
+];
+const UNIT_TYPES = ['Universitas / Institusi (tingkat pimpinan)','Fakultas','Sekolah / Pascasarjana','Jurusan / Departemen','Program Studi','Lembaga (LPPM, LPM, dsb.)','Pusat / UPT','Biro','Direktorat','Divisi / Bagian / Unit','Pusat Riset / Organisasi Riset (BRIN)','Lainnya'];
+const LEVELS = ['Bachelor (S1)','Master (S2)','Doctoral (S3)','Lainnya / Non-degree'];
+const CONTACT_TYPES = [['email','Email'],['whatsapp','WhatsApp / Telepon'],['website','Web Pribadi'],['linkedin','LinkedIn'],['instagram','Instagram'],['facebook','Facebook'],['x','X (Twitter)'],['address','Alamat Saat Ini']];
+const COUNTRIES = ['Indonesia','Taiwan','Malaysia','Singapura','Jepang','Korea Selatan','Australia','Belanda','Inggris','Amerika Serikat','Arab Saudi'];
+const PROVINCES = ['Aceh','Sumatera Utara','Sumatera Barat','Riau','Kepulauan Riau','Jambi','Sumatera Selatan','Kepulauan Bangka Belitung','Bengkulu','Lampung','DKI Jakarta','Banten','Jawa Barat','Jawa Tengah','DI Yogyakarta','Jawa Timur','Bali','Nusa Tenggara Barat','Nusa Tenggara Timur','Kalimantan Barat','Kalimantan Tengah','Kalimantan Selatan','Kalimantan Timur','Kalimantan Utara','Sulawesi Utara','Gorontalo','Sulawesi Tengah','Sulawesi Barat','Sulawesi Selatan','Sulawesi Tenggara','Maluku','Maluku Utara','Papua','Papua Barat','Papua Barat Daya','Papua Selatan','Papua Tengah','Papua Pegunungan'];
+const STEP_LABELS = ['Identitas','Jabatan','Pendidikan','Kontak','Tanda tangan'];
+
+let cur = 0, photoData = '', lastResult = null;
+
+/* ---------- build static UI ---------- */
+if (CONFIG.CONTACT_EMAIL) $$('.contact-mail').forEach(s => s.textContent = ' — ' + CONFIG.CONTACT_EMAIL);
+if (IS_DEMO) $('#demoBar').hidden = false;
+
+$('#steps').innerHTML = STEP_LABELS.map((l, i) => `<li data-i="${i + 1}"><div class="dot">${i + 1}</div><span class="t">${l}</span></li>`).join('');
+
+$('#structChips').innerHTML = STRUCT.map(([id, en], i) => `<label class="chip"><input type="checkbox" name="struct" value="${esc(id)} | ${esc(en)}"><span>${esc(id)}<small>${esc(en)}</small></span></label>`).join('') +
+  `<label class="chip"><input type="checkbox" name="struct" value="__other"><span>Lainnya<small>Other</small></span></label>`;
+
+$('#functional').innerHTML = '<option value="">— Pilih —</option>' + FUNC.map(([g, items]) => `<optgroup label="${esc(g)}">${items.map(x => `<option>${esc(x)}</option>`).join('')}</optgroup>`).join('');
+$('#unitType').innerHTML = '<option value="">— Pilih jenis unit —</option>' + UNIT_TYPES.map(x => `<option>${esc(x)}</option>`).join('');
+
+/* ---------- navigation ---------- */
+function goTo(n) {
+  cur = n;
+  $$('section.step').forEach(s => s.classList.toggle('show', +s.dataset.step === n));
+  const inForm = n >= 1 && n <= 5;
+  $('#stepper').hidden = !inForm;
+  $$('#steps li').forEach(li => { const i = +li.dataset.i; li.classList.toggle('active', i === n); li.classList.toggle('done', i < n); });
+  $('#barfill').style.width = inForm ? ((n - 1) / 4 * 100 + 10) + '%' : '0';
+  $('#prev').style.visibility = (n >= 2 && n <= 5) ? 'visible' : 'hidden';
+  $('#nav').style.display = n === 6 ? 'none' : 'flex';
+  const nx = $('#next');
+  nx.textContent = n === 0 ? 'Mulai mengisi' : n === 5 ? 'Kirim & buat PDF' : 'Lanjut';
+  nx.disabled = n === 0 ? !$('#consent0').checked : false;
+  if (n === 5) { buildReview(); $('#signame').textContent = 'Penanda tangan: ' + $('#fullName').value.trim(); setTimeout(initSig, 60); }
+  if (!goTo.first) goTo.first = true; else window.scrollTo({ top: $('#card').offsetTop - 20, behavior: 'smooth' });
+}
+$('#consent0').addEventListener('change', e => { if (cur === 0) $('#next').disabled = !e.target.checked; });
+$('#prev').onclick = () => goTo(cur - 1);
+$('#next').onclick = () => {
+  if (cur === 0) return goTo(1);
+  if (!validate(cur)) return;
+  if (cur === 5) return submitForm();
+  goTo(cur + 1);
+};
+$$('.tabs button').forEach(b => b.onclick = () => {
+  $$('.tabs button').forEach(x => x.classList.toggle('on', x === b));
+  $('#info-id').hidden = b.dataset.lang !== 'id';
+  $('#info-en').hidden = b.dataset.lang !== 'en';
+});
+
+/* ---------- validation helpers ---------- */
+function setErr(el, msg) {
+  const f = el.closest('.field') || el.closest('.check') || el.parentElement;
+  f.classList.toggle('has-error', !!msg);
+  let m = f.querySelector(':scope > .err');
+  if (!m) { m = document.createElement('div'); m.className = 'err'; f.appendChild(m); }
+  m.textContent = msg || '';
+}
+function req(el, msg) { const bad = !String(el.value).trim(); setErr(el, bad ? (msg || 'Wajib diisi.') : ''); return !bad; }
+let firstBad = null;
+function mark(ok, el) { if (!ok && !firstBad) firstBad = el; return ok; }
+
+function validate(n) {
+  firstBad = null; let ok = true;
+  if (n === 1) {
+    const nm = $('#fullName'), v = nm.value.trim();
+    let m = '';
+    if (!v) m = 'Wajib diisi.';
+    else if (v.length < 3) m = 'Nama terlalu pendek.';
+    else if (/,|\bph\.?\s?d\b|^\s*(dr|prof|ir|drs|dra)[. ]/i.test(v)) m = 'Mohon tulis tanpa gelar (hapus Dr., Prof., Ph.D, dsb.).';
+    setErr(nm, m); ok = mark(!m, nm) && ok;
+    const pf = $('#photoFile'); const pm = photoData ? '' : 'Foto close-up wajib diunggah.';
+    setErr(pf, pm); ok = mark(!pm, $('#photoBtn')) && ok;
+  }
+  if (n === 2) {
+    const sel = $$('input[name=struct]:checked');
+    let m = sel.length ? '' : 'Pilih minimal satu jabatan.';
+    if (sel.some(x => x.value === '__other') && !$('#structOther').value.trim()) m = 'Sebutkan jabatan lainnya.';
+    setErr($('#structChips'), m); ok = mark(!m, $('#structChips')) && ok;
+    ok = mark(req($('#functional'), 'Pilih jabatan fungsional.'), $('#functional')) && ok;
+    if ($('#functional').value.startsWith('Lainnya')) ok = mark(req($('#funcOther')), $('#funcOther')) && ok;
+    ['#unitType', '#unitName', '#institution'].forEach(s => { ok = mark(req($(s)), $(s)) && ok; });
+  }
+  if (n === 3) {
+    const rows = $$('#studies .rowcard');
+    rows.forEach(r => {
+      ['.s-level', '.s-dept', '.s-college', '.s-in', '.s-out'].forEach(s => { ok = mark(req($(s, r)), $(s, r)) && ok; });
+      const a = +$('.s-in', r).value, b = +$('.s-out', r).value;
+      if (a && b && b < a) { setErr($('.s-out', r), 'Tahun lulus tidak boleh sebelum tahun masuk.'); ok = mark(false, $('.s-out', r)) && ok; }
+    });
+    ok = mark(req($('#doctoralUniv')), $('#doctoralUniv')) && ok;
+  }
+  if (n === 4) {
+    const rows = $$('#contacts .rowcard'); let hasMain = false;
+    const ce = $('#contactsErr'); ce.style.display = 'none';
+    rows.forEach(r => {
+      const t = $('.c-type', r).value;
+      if (t === 'address') {
+        ['.a-country', '.a-city', '.a-street'].forEach(s => { ok = mark(req($(s, r)), $(s, r)) && ok; });
+        const pv = $('.a-prov', r); if (pv) ok = mark(req(pv), pv) && ok;
+      } else {
+        const inp = $('.c-val', r); let v = inp.value.trim(), m = '';
+        if (!v) m = 'Wajib diisi.';
+        else if (t === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) m = 'Format email belum benar.';
+        else if (t === 'whatsapp' && !/^\+?[0-9][0-9\s\-()]{7,19}$/.test(v)) m = 'Nomor belum benar (gunakan angka, boleh diawali +).';
+        else if (t === 'website' && !/^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/i.test(v)) m = 'Alamat web belum benar.';
+        setErr(inp, m); ok = mark(!m, inp) && ok;
+        if (!m && (t === 'email' || t === 'whatsapp')) hasMain = true;
+      }
+    });
+    if (!rows.length || (ok && !hasMain)) { ce.textContent = 'Minimal satu kontak email atau WhatsApp diperlukan.'; ce.style.display = 'block'; ok = mark(false, ce) && false; }
+  }
+  if (n === 5) {
+    [['#consent1', '#c1wrap'], ['#consent2', '#c2wrap']].forEach(([c, w]) => { const bad = !$(c).checked; $(w).classList.toggle('has-error', bad); ok = mark(!bad, $(w)) && ok; });
+    const bad = !sig.inked; setErr($('#sig'), bad ? 'Tanda tangan diperlukan.' : ''); ok = mark(!bad, $('#sig')) && ok;
+  }
+  if (!ok && firstBad) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); if (firstBad.focus) try { firstBad.focus({ preventScroll: true }); } catch (e) {} }
+  return ok;
+}
+
+/* ---------- step 1: photo ---------- */
+$('#photoBtn').onclick = () => $('#photoFile').click();
+$('#photoFile').onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    let bmp;
+    try { bmp = await createImageBitmap(f, { imageOrientation: 'from-image' }); }
+    catch (_) { bmp = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(f); }); }
+    const W = 640, H = 800, c = document.createElement('canvas'); c.width = W; c.height = H;
+    const sw = bmp.width, sh = bmp.height, tr = W / H;
+    let cw = sw, ch = sw / tr; if (ch > sh) { ch = sh; cw = sh * tr; }
+    const cx = (sw - cw) / 2, cy = Math.max(0, (sh - ch) / 2 - sh * 0.04);
+    const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, W, H);
+    g.drawImage(bmp, cx, cy, cw, ch, 0, 0, W, H);
+    photoData = c.toDataURL('image/jpeg', 0.86);
+    const pv = $('#photoPrev'); pv.innerHTML = ''; pv.style.backgroundImage = `url(${photoData})`;
+    setErr($('#photoFile'), '');
+  } catch (err) { setErr($('#photoFile'), 'Foto tidak dapat dibaca. Coba berkas JPG/PNG lain.'); }
+};
+
+/* ---------- step 2: conditional ---------- */
+$$('input[name=struct]').forEach(i => i.addEventListener('change', () => {
+  $('#structOtherWrap').hidden = !$$('input[name=struct]:checked').some(x => x.value === '__other');
+}));
+$('#functional').onchange = e => { $('#funcOtherWrap').hidden = !e.target.value.startsWith('Lainnya'); };
+
+/* ---------- step 3: studies ---------- */
+function yearOptions() {
+  const y = new Date().getFullYear(); let o = '<option value="">—</option>';
+  for (let i = y; i >= CONFIG.YEAR_MIN; i--) o += `<option>${i}</option>`;
+  return o;
+}
+function addStudy(pref = {}) {
+  const d = document.createElement('div'); d.className = 'rowcard';
+  d.innerHTML = `
+    <div class="rowtitle">Studi di Asia University</div>
+    <button type="button" class="rm">Hapus</button>
+    <div class="grid2">
+      <div class="field"><label class="req">Jenjang · Degree</label><select class="s-level"><option value="">— Pilih —</option>${LEVELS.map(x => `<option>${esc(x)}</option>`).join('')}</select><div class="err"></div></div>
+      <div class="field"><label class="req">Department / Program di AU</label><input type="text" class="s-dept" placeholder="mis. Business Administration"><div class="err"></div></div>
+    </div>
+    <div class="field"><label class="req">College di AU</label><input type="text" class="s-college" list="colleges" placeholder="pilih saran atau ketik sendiri"><div class="err"></div></div>
+    <div class="grid2">
+      <div class="field" style="margin-bottom:0"><label class="req">Tahun masuk</label><select class="s-in">${yearOptions()}</select><div class="err"></div></div>
+      <div class="field" style="margin-bottom:0"><label class="req">Tahun lulus</label><select class="s-out">${yearOptions()}</select><div class="err"></div></div>
+    </div>`;
+  $('.rm', d).onclick = () => { d.remove(); renumber('#studies', 'Studi di Asia University'); };
+  $('#studies').appendChild(d); renumber('#studies', 'Studi di Asia University');
+}
+function renumber(sel, title) {
+  const rows = $$(sel + ' .rowcard');
+  rows.forEach((r, i) => { $('.rowtitle', r).textContent = title + ' #' + (i + 1); $('.rm', r).style.display = rows.length > 1 || sel === '#contacts' ? '' : 'none'; });
+}
+$('#addStudy').onclick = () => addStudy();
+addStudy();
+
+/* ---------- step 4: contacts ---------- */
+const PLACEHOLDERS = { email: 'nama@kampus.ac.id', whatsapp: '+62 812 3456 7890', website: 'https://contoh.com', linkedin: 'linkedin.com/in/nama-anda', instagram: '@username', facebook: 'facebook.com/nama.anda', x: '@username' };
+function addContact(type = '') {
+  const d = document.createElement('div'); d.className = 'rowcard';
+  d.innerHTML = `<div class="rowtitle"></div><button type="button" class="rm">Hapus</button>
+    <div class="field"><label class="req">Jenis kontak</label><select class="c-type"><option value="">— Pilih jenis —</option>${CONTACT_TYPES.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select></div>
+    <div class="c-body"></div>`;
+  const sel = $('.c-type', d); sel.value = type;
+  sel.onchange = () => renderContactBody(d);
+  $('.rm', d).onclick = () => { d.remove(); renumber('#contacts', 'Kontak'); };
+  $('#contacts').appendChild(d); renumber('#contacts', 'Kontak'); renderContactBody(d);
+}
+function renderContactBody(d) {
+  const t = $('.c-type', d).value, b = $('.c-body', d);
+  if (!t) { b.innerHTML = ''; return; }
+  if (t === 'address') {
+    b.innerHTML = `
+      <div class="grid2">
+        <div class="field"><label class="req">Negara</label><select class="a-country">${COUNTRIES.map(c => `<option>${c}</option>`).join('')}<option value="__o">Lainnya…</option></select><div class="err"></div></div>
+        <div class="field a-prov-wrap"><label class="req">Provinsi</label><select class="a-prov"><option value="">— Pilih provinsi —</option>${PROVINCES.map(p => `<option>${p}</option>`).join('')}</select><div class="err"></div></div>
+      </div>
+      <div class="field a-co-wrap" hidden><label class="req">Nama negara</label><input type="text" class="a-co" placeholder="Nama negara"><div class="err"></div></div>
+      <div class="grid2">
+        <div class="field"><label class="req">Kota / Kabupaten</label><input type="text" class="a-city" placeholder="mis. Kota Bengkulu"><div class="err"></div></div>
+        <div class="field"><label>Kode pos</label><input type="text" class="a-postal" inputmode="numeric"></div>
+      </div>
+      <div class="field" style="margin-bottom:0"><label class="req">Alamat (jalan, nomor, kelurahan/kecamatan)</label><input type="text" class="a-street"><div class="err"></div></div>`;
+    const cs = $('.a-country', b);
+    cs.onchange = () => {
+      const w = $('.a-prov-wrap', b), isID = cs.value === 'Indonesia';
+      $('.a-co-wrap', b).hidden = cs.value !== '__o';
+      w.innerHTML = isID
+        ? `<label class="req">Provinsi</label><select class="a-prov"><option value="">— Pilih provinsi —</option>${PROVINCES.map(p => `<option>${p}</option>`).join('')}</select><div class="err"></div>`
+        : `<label class="req">Provinsi / Negara bagian / Wilayah</label><input type="text" class="a-prov"><div class="err"></div>`;
+    };
+  } else {
+    const itype = t === 'email' ? 'email' : t === 'whatsapp' ? 'tel' : 'text';
+    b.innerHTML = `<div class="field" style="margin-bottom:0"><label class="req">${esc(CONTACT_TYPES.find(x => x[0] === t)[1])}</label><input type="${itype}" class="c-val" placeholder="${esc(PLACEHOLDERS[t] || '')}" ${t === 'email' ? 'autocomplete="email"' : ''}><div class="err"></div></div>`;
+    if (t === 'whatsapp') $('.c-val', b).addEventListener('blur', e => { let v = e.target.value.trim().replace(/[\s\-()]/g, ''); if (/^0\d{8,}$/.test(v)) e.target.value = '+62' + v.slice(1); });
+  }
+}
+$('#addContact').onclick = () => addContact();
+addContact('email'); addContact('whatsapp');
+
+/* ---------- collect ---------- */
+function collect() {
+  const structs = $$('input[name=struct]:checked').map(x => x.value === '__other' ? $('#structOther').value.trim() : x.value);
+  let func = $('#functional').value; if (func.startsWith('Lainnya')) func = $('#funcOther').value.trim();
+  const studies = $$('#studies .rowcard').map(r => ({ level: $('.s-level', r).value, dept: $('.s-dept', r).value.trim(), college: $('.s-college', r).value.trim(), yearIn: $('.s-in', r).value, yearOut: $('.s-out', r).value }));
+  const contacts = $$('#contacts .rowcard').map(r => {
+    const type = $('.c-type', r).value;
+    if (type === 'address') {
+      const cv = $('.a-country', r).value;
+      return { type, country: cv === '__o' ? $('.a-co', r).value.trim() : cv, province: $('.a-prov', r).value.trim(), city: $('.a-city', r).value.trim(), postal: $('.a-postal', r).value.trim(), street: $('.a-street', r).value.trim() };
+    }
+    let value = $('.c-val', r).value.trim();
+    if (type === 'website' && !/^https?:\/\//i.test(value)) value = 'https://' + value;
+    return { type, value };
+  });
+  return { fullName: $('#fullName').value.trim().replace(/\s+/g, ' '), structural: structs, functional: func, unitType: $('#unitType').value, unitName: $('#unitName').value.trim(), institution: $('#institution').value.trim(), doctoralUniv: $('#doctoralUniv').value.trim(), studies, contacts };
+}
+const CT_LABEL = Object.fromEntries(CONTACT_TYPES);
+function addrStr(a) { return [a.street, a.city, a.province, a.country].filter(Boolean).join(', ') + (a.postal ? ' ' + a.postal : ''); }
+
+function buildReview() {
+  const d = collect();
+  const row = (k, v) => `<dt>${esc(k)}</dt><dd>${esc(v) || '—'}</dd>`;
+  $('#review').innerHTML = `
+    <div class="rev"><h4>Identitas</h4><dl><div class="revtop"><img src="${photoData}" alt="Foto"><div style="flex:1">${row('Nama lengkap', d.fullName)}</div></div></dl></div>
+    <div class="rev"><h4>Jabatan &amp; Afiliasi</h4><dl>${row('Jabatan struktural', d.structural.join('; ').replace(/ \| /g, ' / '))}${row('Jabatan fungsional', d.functional)}${row('Unit', d.unitName + ' (' + d.unitType + ')')}${row('Institusi', d.institution)}</dl></div>
+    <div class="rev"><h4>Pendidikan</h4><dl>${d.studies.map(s => row(s.level + ' di AU', `${s.dept}, ${s.college} (${s.yearIn}–${s.yearOut})`)).join('')}${row('Kampus studi doktor', d.doctoralUniv)}</dl></div>
+    <div class="rev"><h4>Kontak</h4><dl>${d.contacts.map(c => row(CT_LABEL[c.type], c.type === 'address' ? addrStr(c) : c.value)).join('')}</dl></div>`;
+}
+
+/* ---------- signature ---------- */
+const sig = { c: null, g: null, inked: false, drawing: false, ready: false };
+function initSig() {
+  const c = $('#sig'); sig.c = c;
+  const r = c.getBoundingClientRect(); if (!r.width) return;
+  if (sig.ready && sig.inked) return;            // jangan hapus coretan saat kembali ke langkah ini
+  const dpr = window.devicePixelRatio || 1;
+  c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr);
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.lineWidth = 2.4; g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#0f1b33';
+  sig.g = g; sig.ready = true;
+  if (!c._bound) {
+    c._bound = true;
+    const pos = e => { const b = c.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+    c.addEventListener('pointerdown', e => { e.preventDefault(); c.setPointerCapture(e.pointerId); sig.drawing = true; const [x, y] = pos(e); sig.g.beginPath(); sig.g.moveTo(x, y); sig.g.lineTo(x + 0.01, y + 0.01); sig.g.stroke(); sig.last = [x, y]; });
+    c.addEventListener('pointermove', e => { if (!sig.drawing) return; e.preventDefault(); const [x, y] = pos(e), [lx, ly] = sig.last; sig.g.beginPath(); sig.g.moveTo(lx, ly); sig.g.quadraticCurveTo(lx, ly, (lx + x) / 2, (ly + y) / 2); sig.g.stroke(); sig.last = [x, y]; if (!sig.inked) { sig.inked = true; $('#sigcap').style.display = 'none'; setErr($('#sig'), ''); } });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => c.addEventListener(ev, () => { sig.drawing = false; }));
+  }
+}
+$('#sigClear').onclick = () => { sig.ready = false; sig.inked = false; $('#sigcap').style.display = ''; initSig(); const c = $('#sig'); sig.g.clearRect(0, 0, c.width, c.height); };
+function sigData() {
+  const src = $('#sig'), W = 700, H = Math.round(W * src.height / src.width), t = document.createElement('canvas'); t.width = W; t.height = H;
+  t.getContext('2d').drawImage(src, 0, 0, W, H); return t.toDataURL('image/png');
+}
+
+/* ---------- submit ---------- */
+async function submitForm() {
+  const payload = collect();
+  payload.photo = photoData; payload.signature = sigData(); payload.hp = $('#hp').value;
+  payload.consent = { c0: $('#consent0').checked, c1: $('#consent1').checked, c2: $('#consent2').checked };
+  payload.clientTime = new Date().toISOString(); payload.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  $('#overlay').classList.add('show');
+  try {
+    let res;
+    if (IS_DEMO) { await new Promise(r => setTimeout(r, 900)); res = { ok: true, id: 'DEMO-0001', emailed: false }; }
+    else {
+      const ctl = new AbortController(), to = setTimeout(() => ctl.abort(), 150000);
+      const r = await fetch(CONFIG.GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload), signal: ctl.signal, redirect: 'follow' });
+      clearTimeout(to); res = await r.json();
+    }
+    if (!res.ok) throw new Error(res.error || 'Server menolak data.');
+    lastResult = res;
+    $('#okName').textContent = payload.fullName.split(' ')[0];
+    $('#okId').textContent = 'ID: ' + res.id;
+    $('#okMail').textContent = res.emailed ? 'Salinan PDF juga telah dikirim ke email Anda.' : (IS_DEMO ? 'Mode demo: tidak ada PDF yang dibuat.' : 'Simpan salinan PDF Anda dengan tombol di bawah.');
+    $('#dlPdf').hidden = !res.pdfBase64;
+    goTo(6);
+  } catch (err) {
+    alert('Pengiriman gagal: ' + (err.name === 'AbortError' ? 'koneksi terlalu lama.' : err.message) + '\nData Anda masih ada di halaman ini. Silakan coba kirim lagi.');
+  } finally { $('#overlay').classList.remove('show'); }
+}
+$('#dlPdf').onclick = () => {
+  if (!lastResult || !lastResult.pdfBase64) return;
+  const bin = atob(lastResult.pdfBase64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([u8], { type: 'application/pdf' })); a.download = lastResult.pdfName || 'AU-Alumni.pdf'; a.click();
+};
+$('#form').addEventListener('submit', e => e.preventDefault());
+goTo(0);
+</script>
+</body>
+</html>
