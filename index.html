@@ -211,6 +211,7 @@ footer{max-width:860px;margin:0 auto 40px;padding:0 20px;color:var(--muted);font
             <p>A close-up portrait photo (plain background preferred) and your active contact details. You will sign directly on screen with a finger or stylus.</p>
           </div>
 
+          <div class="callout" id="doneBanner" hidden>Perangkat ini sudah pernah mengirim formulir (<b id="doneId"></b>). Setiap alumni hanya mengisi satu kali, dan data ganda ditolak otomatis. Jika Anda orang lain, silakan lanjut.</div>
           <label class="check" id="c0wrap">
             <input type="checkbox" id="consent0">
             <span><b>Persetujuan awal.</b> Saya telah membaca informasi di atas dan <b>bersedia mengisi</b> data pada formulir ini secara jujur dan akurat.<br><i style="color:var(--muted)">I have read the information above and am willing to complete this form truthfully and accurately.</i></span>
@@ -748,13 +749,15 @@ async function submitForm() {
     }
     if (!res.ok) throw new Error(res.error || 'Server menolak data.');
     lastResult = res;
+    try { localStorage.setItem('au_submitted', JSON.stringify({ id: res.id, t: Date.now() })); } catch (e) {}
     $('#okName').textContent = payload.fullName.split(' ')[0];
     $('#okId').textContent = 'ID: ' + res.id;
     $('#okMail').textContent = res.emailed ? 'Salinan PDF juga telah dikirim ke email Anda.' : (IS_DEMO ? 'Mode demo: tidak ada PDF yang dibuat.' : 'Simpan salinan PDF Anda dengan tombol di bawah.');
     $('#dlPdf').hidden = !res.pdfBase64;
     goTo(6);
   } catch (err) {
-    alert('Pengiriman gagal: ' + (err.name === 'AbortError' ? 'koneksi terlalu lama.' : err.message) + '\nData Anda masih ada di halaman ini. Silakan coba kirim lagi.');
+    if (/^Data sudah terdaftar/.test(err.message)) alert(err.message);
+    else alert('Pengiriman gagal: ' + (err.name === 'AbortError' ? 'koneksi terlalu lama.' : err.message) + '\nData Anda masih ada di halaman ini. Silakan coba kirim lagi.');
   } finally { $('#overlay').classList.remove('show'); }
 }
 $('#dlPdf').onclick = () => {
@@ -763,6 +766,7 @@ $('#dlPdf').onclick = () => {
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([u8], { type: 'application/pdf' })); a.download = lastResult.pdfName || 'AU-Alumni.pdf'; a.click();
 };
 $('#form').addEventListener('submit', e => e.preventDefault());
+try { const s = JSON.parse(localStorage.getItem('au_submitted') || 'null'); if (s) { $('#doneId').textContent = 'ID: ' + s.id; $('#doneBanner').hidden = false; } } catch (e) {}
 goTo(0);
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script>
