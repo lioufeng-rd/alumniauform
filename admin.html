@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow"><title>Admin · AU Alumni Registry</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="admin.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AU Admin">
+<meta name="theme-color" content="#0f1b33">
+<title>Admin · AU Alumni Registry</title>
 <style>
 :root{--ink:#0f1b33;--gold:#b8934a;--line:#e6dfd0;--muted:#68718a}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:#faf7f1;color:var(--ink)}
@@ -44,4 +53,5 @@ async function send(mode){const n=mode==='all'?'SEMUA PDF':'PDF yang belum terki
  try{const j=await call({action:'admin_send',mode});$('#msg').className='ok';$('#msg').textContent=j.message;await load()}catch(e){$('#msg').className='err';$('#msg').textContent=e.message}
  b.forEach(x=>x.disabled=false)}
 $('#sendNew').onclick=()=>send('unsent');$('#sendAll').onclick=()=>send('all');
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script></body></html>
